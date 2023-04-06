@@ -99,7 +99,68 @@ public class CarFormController implements Initializable {
 
     }
 
-  
+    @FXML
+    void addToList() {
+        String model = modelField.getText();
+        String make = makeField.getText();
+        String yearStr = yearField.getText();
+
+
+        // This Constructs the car information string and add it to the list view
+        String carInfo = model + " " + make + " " + yearStr;
+//        showRoom.addCar();
+        carListView.getItems().add(carInfo);
+        modelField.clear();
+        makeField.clear();
+        yearField.clear();
+
+        // This section is about errors
+
+        int year = 0;
+        try {
+            year = Integer.parseInt(yearStr);
+        } catch (NumberFormatException e) {
+            errorLabel.setText("Invalid year: must be a number");
+            return;
+        }
+
+        if (make.isEmpty()) {
+            errorLabel.setText("Make is required");
+            return;
+        }
+
+        if (model.isEmpty()) {
+            errorLabel.setText("Model is required");
+            return;
+        }
+
+        if (year < 1900 || year > 2023) {
+            errorLabel.setText("Invalid year: must be between 1900 and 2023");
+            return;
+        }
+
+        // Prints out data with the car info
+        System.out.println("Make: " + make);
+        System.out.println("Model: " + model);
+        System.out.println("Year: " + year);
+
+        // This Clears the form and error label
+        makeField.setText("");
+        modelField.setText("");
+        yearField.setText("");
+        errorLabel.setText("");
+
+    }
+    @FXML
+    void DisplayShowRoom(MouseEvent event) {
+
+        if(!(carListView.getSelectionModel().getSelectedIndex() == -1)) {
+            carImageView.setImage(showRoom.getCarsInShowRoom().get(carListView.getSelectionModel().getSelectedIndex()).getImage());
+            carModel.setText(showRoom.getCarsInShowRoom().get(carListView.getSelectionModel().getSelectedIndex()).getCarModel());
+            carMake.setText(showRoom.getCarsInShowRoom().get(carListView.getSelectionModel().getSelectedIndex()).getCarMake());
+            carYear.setText(Integer.toString(showRoom.getCarsInShowRoom().get(carListView.getSelectionModel().getSelectedIndex()).getCarYear()));
+        }
+    }
 }
 
 
