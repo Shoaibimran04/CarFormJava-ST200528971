@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -78,8 +79,6 @@ public class CarFormController implements Initializable {
             carYear.setText(Integer.toString(Car3.getCarYear()));
             carModel.setText(Car3.getCarModel());
             carMake.setText(Car3.getCarMake());
-
-
         }
     }
 
@@ -90,9 +89,9 @@ public class CarFormController implements Initializable {
         Car Car3 = new Car("Images/Toyota.jpeg", "Toyota", "Highlander", 2021);
         showRoom = new ShowRoom();
 
-        carListView.getItems().add(Car1.getCarModel());
-        carListView.getItems().add(Car2.getCarModel());
-        carListView.getItems().add(Car3.getCarModel());
+        carListView.getItems().add(Car1.getCarMake()+" "+Car1.getCarModel() + " " + Car1.getCarYear());
+        carListView.getItems().add(Car2.getCarMake()+" "+Car2.getCarModel() + " " + Car2.getCarYear());
+        carListView.getItems().add(Car3.getCarMake()+" "+Car3.getCarModel() + " " + Car3.getCarYear());
         showRoom.addCar(Car1);
         showRoom.addCar(Car2);
         showRoom.addCar(Car3);
