@@ -9,15 +9,15 @@ public class Car {
         private String carModel;
         private int carYear;
 
-
-
+    public String getPath() {
+        return path;
+    }
 
     // Constructor to initialize the instance variables
-        public Car(String path, String carMake, String carModel, int carYear) {
-            this.path = path;
-            this.carMake = carMake;
-            this.carModel = carModel;
-            this.carYear = carYear;
+        public Car(String carMake, String carModel, int carYear) {
+            setCarMake(carMake);
+            setCarModel(carModel);
+            setCarYear(carYear);
         }
 
 
@@ -41,6 +41,11 @@ public class Car {
             this.path = path;
         }
         public void setCarMake(String carMake) {
+            for (char character : carMake.toCharArray()) {
+                if(Character.isDigit(character)) {
+                    throw new IllegalArgumentException("Make does not have a number");
+                }
+            }
             this.carMake = carMake;
         }
 
@@ -49,12 +54,25 @@ public class Car {
         }
 
         public void setCarYear(int carYear) {
+            if (carYear < 1900 || carYear > 2023) {
+                throw new IllegalArgumentException("Invalid year: must be between 1900 and 2023");
+            }
             this.carYear = carYear;
         }
 
-        public Image getImage()
+    @Override
+    public String toString() {
+        return getCarModel();
+    }
+
+    public Image getImage()
         {
+            path = "Images/" + carMake + ".png";
             return new Image(Car.class.getResourceAsStream(path));
+        }
+
+        public Image defaultImage(){
+        return new Image(Car.class.getResourceAsStream("Images/Default.png"));
         }
 
 }

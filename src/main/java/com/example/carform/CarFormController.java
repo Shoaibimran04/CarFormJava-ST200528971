@@ -42,7 +42,7 @@ public class CarFormController implements Initializable {
     private Button addToListButton;
 
     @FXML
-    private ListView<String> carListView;
+    private ListView<Car> carListView;
 
     @FXML
     private Label errorLabel;
@@ -84,14 +84,14 @@ public class CarFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Car Car1 = new Car("Images/Bmw1.jpg", "Bmw", "328i", 2013);
-        Car Car2 = new Car("Images/Mercedes.jpg", "Mercedes", "Benz", 2020);
-        Car Car3 = new Car("Images/Toyota.jpeg", "Toyota", "Highlander", 2021);
+        Car Car1 = new Car("Bmw", "328i", 2013);
+        Car Car2 = new Car("Mercedes", "Benz", 2020);
+        Car Car3 = new Car( "Toyota", "Highlander", 2021);
         showRoom = new ShowRoom();
 
-        carListView.getItems().add(Car1.getCarMake()+" "+Car1.getCarModel() + " " + Car1.getCarYear());
-        carListView.getItems().add(Car2.getCarMake()+" "+Car2.getCarModel() + " " + Car2.getCarYear());
-        carListView.getItems().add(Car3.getCarMake()+" "+Car3.getCarModel() + " " + Car3.getCarYear());
+        carListView.getItems().add(Car1);
+        carListView.getItems().add(Car2);
+        carListView.getItems().add(Car3);
         showRoom.addCar(Car1);
         showRoom.addCar(Car2);
         showRoom.addCar(Car3);
@@ -102,46 +102,33 @@ public class CarFormController implements Initializable {
     void addToList() {
         String model = modelField.getText();
         String make = makeField.getText();
-        String yearStr = yearField.getText();
+        int yearStr = Integer.parseInt(yearField.getText());
 
 
-        // This Constructs the car information string and add it to the list view
-        String carInfo = model + " " + make + " " + yearStr;
-//        showRoom.addCar();
-        carListView.getItems().add(carInfo);
+        Car car;
+        try{
+            car = new Car(model, make, yearStr);
+            showRoom.addCar(car);
+            //carImageView.setImage(car.getImage());
+        } catch (Exception e){
+            errorLabel.setText(e.getMessage());
+            errorLabel.setVisible(true);
+            System.out.println("error");
+            //carImageView.setImage(car.defaultImage());
+        }
+
+        carListView.getItems().clear();
+        carListView.getItems().addAll(showRoom.getCarsInShowRoom());
+
         modelField.clear();
         makeField.clear();
         yearField.clear();
 
-        // This section is about errors
-
-        int year = 0;
-        try {
-            year = Integer.parseInt(yearStr);
-        } catch (NumberFormatException e) {
-            errorLabel.setText("Invalid year: must be a number");
-            return;
-        }
-
-        if (make.isEmpty()) {
-            errorLabel.setText("Make is required");
-            return;
-        }
-
-        if (model.isEmpty()) {
-            errorLabel.setText("Model is required");
-            return;
-        }
-
-        if (year < 1900 || year > 2023) {
-            errorLabel.setText("Invalid year: must be between 1900 and 2023");
-            return;
-        }
 
         // Prints out data with the car info
         System.out.println("Make: " + make);
         System.out.println("Model: " + model);
-        System.out.println("Year: " + year);
+        System.out.println("Year: " + yearStr);
 
         // This Clears the form and error label
         makeField.setText("");

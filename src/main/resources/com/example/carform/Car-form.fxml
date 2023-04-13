@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.carform.CarFormController">
    <children>
-      <ImageView fx:id="carImageView" fitHeight="139.0" fitWidth="227.0" layoutX="202.0" layoutY="40.0" onDragDetected="#DisplayImage" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="carImageView" fitHeight="139.0" fitWidth="227.0" layoutX="185.0" layoutY="14.0" onDragDetected="#DisplayImage" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/Bmw1.jpg" />
          </image>
@@ -22,6 +22,7 @@
       <Label fx:id="carModel" layoutX="285.0" layoutY="224.0" prefHeight="17.0" prefWidth="81.0" />
       <Label fx:id="carMake" layoutX="285.0" layoutY="254.0" prefHeight="17.0" prefWidth="81.0" />
       <Label fx:id="carYear" layoutX="285.0" layoutY="285.0" prefHeight="17.0" prefWidth="81.0" />
+      <Button fx:id="myButton" layoutX="255.0" layoutY="312.0" mnemonicParsing="false" onAction="#DisplayImage" text="Change" />
       <Button fx:id="addToListButton" layoutX="461.0" layoutY="211.0" mnemonicParsing="false" onAction="#addToList" text="Add to list" />
       <VBox layoutX="452.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0">
          <children>
